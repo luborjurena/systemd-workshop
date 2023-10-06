@@ -1,10 +1,8 @@
 ## Namespace izolácia
 
-Linux namespace je funkcia jadra, pre vytvorenie izolovaného prostredia v ktorom spúšťame procesy a systémove prostriedky. Najčastejšie sa s nimi môžeme stretnúť v kontajnerých virtualizáciach (napr. LXC).
+Linux namespace je funkcia jadra, pre vytvorenie izolovaného prostredia v ktorom spúšťame procesy a systémove prostriedky. Najčastejšie sa s nimi môžeme stretnúť v kontajnerých virtualizáciach (napr. LXC). V Systemd je táto izolácia zabezpečená vytvorením izolovaného pohľadu na súborový systém.
 
-Používajú sa najmä na izoláciu pripojených súborových systémov, takže procesy v jedno namespace nemôžu vidieť do súborov v inom namespace.
-
-Vytvorme si novú službu `/etc/systemd/system/ns.service`:
+Vytvoríme si novú službu `/etc/systemd/system/ns.service`:
 ```
 [Service]
 ProtectHome=yes
@@ -21,11 +19,11 @@ Zistime si aký ma PID:
 ```
 [~]: systemctl status ns
 ```
-Pripojme sa do spusteného namespace:
+Pripojíme sa do spusteného namespace:
 ```
 [~]: nsenter --target PID --all
 ```
-Prvé čo si môžeme všimnúť je, že adresáre /root/, /home, /run/user v novo vytvorenom namespace sú prázdne a nemôžeme do nich zapisovať:
+Prvé čo si môžeme všimnúť je, že adresáre `/root/, /home, /run/user` v novo vytvorenom namespace sú prázdne a nemôžeme do nich zapisovať:
 ```
 [~]: ls -la /root/ /home/ /run/user/
 ```
@@ -43,12 +41,9 @@ Teraz si skúsme vytvoriť niekoľko súborov vo vnútri namespace:
 
 ## Chroot
 
-Chroot je vytvorené prostredie v ktorom môžeme spúštať procesy, takto spustené procesy môžu pristupovať len k zdrojom v rámci daného chroot prostredia. Chroot neposkytuje izolovaný priestor ako v prípade namespace izolácie. 
+Chroot zmení koreňový adresár v ktorom pracujeme a môže obsahovať odlišný operačný systém. V takomto oddelenom prostredí sú procesy izolované na úrovni daného adresára a majú prístup len k súborom v rámci určeného adresára. Neizoluje zdroje ako je napr. sieť alebo procesy.
 
-Zmeny vykonané v chroot prostredí sa prejavia v pôvodnom adresári na hostiteľovi.
-
-Vytvorme si nové chroot prostredie:
-
+Vytvoríme si nové chroot prostredie:
 ```
 [~]: apt-get install debootstrap
 [~]: debootstrap --variant=minbase stable /opt/stable http://ftp.sk.debian.org/debian
@@ -80,15 +75,15 @@ Prostredníctvom príkazu `nsenter` sa prepneme do chrootu:
 
 ## Dynamický užívatelia
 
-Systemd umožňuje definovať pod akým užívateľom chceme službu spúštať. Už sme si ukázali parameter `User=`, v ktorom staticky zadefinujeme užívateľa pod ktorým sa má služba spustiť. Takýto užívateľ v systéme musí vopred existovať.
+Systemd umožňuje definovať pod akým užívateľom chceme službu spúštať. Už sme si ukázali parameter `User=`, v ktorom staticky zadefinujeme užívateľa pod ktorým sa má služba spustiť. Takýto užívateľ v systéme ale musí vopred existovať.
 
-Systemd ale prichádza s parametrom `DynamicUser=`, ktorý vytvorí užívateľa na požiadanie pri spustení služby. Po zastavení služby sa užívateľ odstráni. UID sa prideľuje z rozsahu nastaveného systemd. Systemd to robí pomocou mount namespaces, čo znamená, že použitie DynamicUser= implicitne zapína aj ProtectSystem=strict a ProtectHome=read-only spolu s množstvom ďalších vlastností, ktoré slúžia na bezpečné oddelenie užívateľa.
+Systemd prichádza s parametrom `DynamicUser=`, ktorý vytvorí užívateľa na požiadanie pri spustení služby. Po zastavení služby sa užívateľ odstráni. UID sa prideľuje z rozsahu, ktorý je nastavený v Systemd. Systemd to robí pomocou mount namespaces, čo znamená, že použitie DynamicUser= implicitne zapína aj ProtectSystem=strict a ProtectHome=read-only spolu s množstvom ďalších vlastností, ktoré slúžia na bezpečné oddelenie užívateľa.
 
-Upravme si službu `count.service`:
+Upravíme si službu `count.service`:
 ```
 DynamicUser=yes
 ```
-Zmeny aplikujme a spravme reštart služby. Skript count.sh nám na začiatku vypíše pod akým užívateľom sa spúšta:
+Zmeny aplikujme a spravme reštart služby. Skript `count.sh` nám na začiatku vypíše pod akým užívateľom sa spúšta:
 ```
 [~]: systemctl status count
 ```
@@ -97,13 +92,14 @@ Deatailnejší výpis:
 [~]: ps -p $(systemctl show --value -p MainPID count) -o user,uid,pid,command,cgroup
 ```
 Všimnite si, že nový užívateľ sa nezapísal do `/etc/passwd`.
+
 Kam sa zapísali informácie o užívateľovi?
 
 Systemd implementuje túto funkciu cez `nss-systemd`, ktorý používa knižnicu Name Service Switch (NSS). Pre čítanie z tejto databázy je potrebné použiť príkaz `getent passwd`.
 
 ## Izolácia siete
 
-Izoláciu siete môžete poznať skôr z kontajnerov alebo virtualizácie. Ukážeme si dva spôsoby ktoré sú implementované v systemd.
+Izoláciu siete môžete poznať skôr z kontajnerov alebo virtualizácie. Ukážeme si dva spôsoby ktoré sú implementované v Systemd.
 
 Prvý spôsob je použitie `PrivateNetwork=true`, ktorý využíva namespace. Takto spustený proces povolí iba komunikáciu voči loopbacku.
 

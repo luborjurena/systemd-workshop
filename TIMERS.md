@@ -1,5 +1,5 @@
 ## Časovač spustenia služby v stanovenom čase
-Tradične sme na túto úlohu používali cron. V systemd môžeme vytvoriť "Timer unit", v ktorej špecifikujeme kedy spustiť službu. Systemd narozdiel od cronu umožňuje vytvoriť časovač aj s kratším intervalom ako 1min.
+Tradične sme na túto úlohu používali cron. V systemd môžeme vytvoriť "Timer unit", v ktorom špecifikujeme, kedy spustiť službu. Systemd narozdiel od cronu umožňuje vytvoriť časovač aj s kratším intervalom ako 1min.
 
 ```
 [~]: systemctl edit --force --full count.timer
@@ -49,7 +49,7 @@ Takto zadefinovaná úloha vytvorí o 30s súbor /tmp/test.txt a následne zanik
 
 ## Náhodné oneskorenie
 
-Každý časovač môžeme doplniť o `RandomizedDelaySec=` alebo o `FixedRandomDelay=`.
+Každý časovač môžeme doplniť napr. o `RandomizedDelaySec=` alebo o `FixedRandomDelay=`.
 
 ## Monitorovanie zmien
 
@@ -60,7 +60,7 @@ Môžeme vytvoriť časovač, ktorý bude monitorovať zmeny súboru:
 
 ```
 [Unit]
-Description=Sleduj zmeny v /etc/ssh/sshd_config
+Description=Sledujem zmeny v /etc/ssh/sshd_config
 
 [Path]
 PathChanged=/etc/ssh/sshd_config
@@ -68,7 +68,7 @@ PathChanged=/etc/ssh/sshd_config
 [Install]
 WantedBy=multi-user.target
 ```
-Následne vytvoríme novú službu, ktorá bude spustená po zmene súboru a vykoná reload ssh:
+Teraz vytvoríme novú službu, ktorá bude spustená po zmene súboru a vykoná reload ssh:
 
 ```
 [~]: systemctl edit --full --force ssh-config-watcher.service
@@ -85,7 +85,7 @@ ExecStart=/bin/systemctl reload sshd.service
 [Install]
 WantedBy=multi-user.target
 ```
-Teraz povolíme spúštanie ssh-config-watcher.path pri štarte systému a zároven hneď túto službu aj spustíme v jednom kroku:
+Mali by sme povoliť spúštanie `ssh-config-watcher.path` pri štarte systému a zároven hneď túto službu aj spustíme v jednom kroku:
 ```
 [~]: systemctl enable --now ssh-config-watcher.path
 ```
@@ -94,3 +94,5 @@ Teraz povolíme spúštanie ssh-config-watcher.path pri štarte systému a záro
 ```
 [~]: systemctl list-timers
 ```
+
+## Dokumentácia [systemd.timer](https://www.freedesktop.org/software/systemd/man/systemd.timer.html)

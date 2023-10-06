@@ -220,7 +220,7 @@ Press ^] three times within 1s to disconnect TTY.
 ```
 Teraz môžete spúštať príkazy vo vnútri služby, reálne sa jedná o kontajner.
 
-Môžeme takto spustiť napr. python konzolu:
+Podobne môžeme spustiť napr. python konzolu:
 ```
 [~]: systemd-run --pty python
 Running as unit: run-u921.service
