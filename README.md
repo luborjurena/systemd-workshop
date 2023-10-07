@@ -35,6 +35,13 @@ git clone https://github.com/luborjurena/systemd-workshop.git
 cp systemd-workshop/count.sh /opt/
 ```
 
+## Ako zistím, či používam systemd?
+```
+[~]: ps -p 1 -o comm=
+systemd
+```
+Výstup bude `systemd`.
+
 ## Vytvorenie vlastnej služby / jednotky
 Pre vytvorenie systemd jednotky je potrebné vytvoriť súbor s príponou .service v priečinku `/etc/systemd/system`. Ako príklad si vytvoríme nový súbor `/etc/systemd/system/count.service` s následujúcim obsahom:
 ```
