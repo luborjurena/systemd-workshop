@@ -21,6 +21,20 @@ systemd-udevd: Stará sa o správu zariadení a dynamickú detekciu hardvéru. J
 
 Celkovo je systemd dôležitým prvkom v moderných distribúciách Linuxu, umožňujúcim efektívnejšie a spoľahlivejšie riadenie systémových procesov a služieb.
 
+## Príprava prostredia
+Debian/Ubuntu:
+```
+apt-get install git debootstrap nano vim
+git clone https://github.com/luborjurena/systemd-workshop.git
+cp systemd-workshop/count.sh /opt/
+```
+Fedora/CentOS:
+```
+dnf install git debootstrap nano vim
+git clone https://github.com/luborjurena/systemd-workshop.git
+cp systemd-workshop/count.sh /opt/
+```
+
 ## Vytvorenie vlastnej služby / jednotky
 Pre vytvorenie systemd jednotky je potrebné vytvoriť súbor s príponou .service v priečinku `/etc/systemd/system`. Ako príklad si vytvoríme nový súbor `/etc/systemd/system/count.service` s následujúcim obsahom:
 ```
