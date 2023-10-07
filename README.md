@@ -1,13 +1,13 @@
 # systemd workshop
 
-Systemd je systémový a službový manažér pre moderné operačné systémy založené na jadre Linux. Je navrhnutý tak, aby nahradil tradičný systém SysV a init skripty. Systemd zabezpečuje iniciálne a riadiace funkcie pre beh systému a správu služieb.
+Systemd je manažér pre linuxové operačné systémy. Je navrhnutý tak, aby nahradil tradičný systém SysV a init skripty. Systemd zabezpečuje incializáciu a základné funkcie pre beh systému a správu služieb.
 
-Hlavnými cieľmi systemd sú zrýchlenie procesu inicializácie systému, lepšia správa služieb, efektívnejšie riadenie systémových udalostí a jednoduchšia konfigurácia. Jeho architektúra je založená na paralelnom spustení služieb, čo umožňuje rýchlejšie načítanie systému.
+Hlavnými cieľmi systemd sú zrýchlenie procesu inicializácie systému, lepšia správa služieb, efektívnejšie riadenie systémových udalostí a jednoduchšia konfigurácia. Jeho architektúra je založená na paralelnom spustení služieb, čo umožňuje rýchlejšie spustenie systému.
 
 V systemd je každá služba reprezentovaná tzv. jednotkou (unit). Tieto jednotky môžu byť služby, sokety, zariadenia, a iné komponenty systému. Služby sú definované v konfiguračných súboroch, ktoré obsahujú informácie o spôsobe, akým má byť služba spustená, zastavená a spravovaná.
 
 Zahŕňa niekoľko dôležitých komponentov:
-- systemd-journald: Slúži na správu a ukladanie systémových logov. Je to náhrada za tradičné systémové logovacie služby.
+- systemd-journald: Slúži na správu a ukladanie systémových logov. Je to náhrada za tradičné systémové logovacie služby (napr. rsyslog).
 systemd-udevd: Stará sa o správu zariadení a dynamickú detekciu hardvéru. Je zodpovedný za správu udev, čo je systém na správu zariadení v jadre Linuxu.
 - systemd-logind: Riadi užívateľské relácie a správu prihlásení do systému.
 - systemd-resolved: Poskytuje systémovú podporu pre spracovanie a ukladanie DNS dotazov a nastavení súvisiacich s DNS.
