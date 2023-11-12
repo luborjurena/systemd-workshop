@@ -214,6 +214,7 @@ Môžeme vidieť, že vo výstupe sa naše limity aplikovali okamžite a bez re�
 # Zhrnutie základných príkazov systemctl
 
 `systemctl list-units` - vypíše všetky jednotky v systéme
+
 `systemctl list-units --type=service` - vypíše len služby
 
 `systemctl status count.service` alebo `systemctl status PID` - zobrazí stav služby
