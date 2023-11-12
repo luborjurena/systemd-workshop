@@ -1,6 +1,6 @@
 ## Namespace izolácia
 
-Linux namespace je funkcia jadra, pre vytvorenie izolovaného prostredia v ktorom spúšťame procesy a systémove prostriedky. Najčastejšie sa s nimi môžeme stretnúť v kontajnerých virtualizáciach (napr. LXC). V Systemd je táto izolácia zabezpečená vytvorením izolovaného pohľadu na súborový systém.
+Linux namespace je funkcia jadra, pre vytvorenie izolovaného prostredia v ktorom spúšťame procesy a systémove prostriedky. Najčastejšie sa s nimi môžeme stretnúť v kontajnerých virtualizáciach (napr. LXC). V systemd je táto izolácia zabezpečená vytvorením izolovaného pohľadu na súborový systém.
 
 Vytvoríme si novú službu `/etc/systemd/system/ns.service`:
 ```
@@ -75,9 +75,9 @@ Prostredníctvom príkazu `nsenter` sa prepneme do chrootu:
 
 ## Dynamický užívatelia
 
-Systemd umožňuje definovať pod akým užívateľom chceme službu spúštať. Už sme si ukázali parameter `User=`, v ktorom staticky zadefinujeme užívateľa pod ktorým sa má služba spustiť. Takýto užívateľ v systéme ale musí vopred existovať.
+systemd umožňuje definovať pod akým užívateľom chceme službu spúštať. Už sme si ukázali parameter `User=`, v ktorom staticky zadefinujeme užívateľa pod ktorým sa má služba spustiť. Takýto užívateľ v systéme ale musí vopred existovať.
 
-Systemd prichádza s parametrom `DynamicUser=`, ktorý vytvorí užívateľa na požiadanie pri spustení služby. Po zastavení služby sa užívateľ odstráni. UID sa prideľuje z rozsahu, ktorý je nastavený v Systemd. Systemd to robí pomocou mount namespaces, čo znamená, že použitie DynamicUser= implicitne zapína aj ProtectSystem=strict a ProtectHome=read-only spolu s množstvom ďalších vlastností, ktoré slúžia na bezpečné oddelenie užívateľa.
+systemd prichádza s parametrom `DynamicUser=`, ktorý vytvorí užívateľa na požiadanie pri spustení služby. Po zastavení služby sa užívateľ odstráni. UID sa prideľuje z rozsahu, ktorý je nastavený v systemd. systemd to robí pomocou mount namespaces, čo znamená, že použitie DynamicUser= implicitne zapína aj ProtectSystem=strict a ProtectHome=read-only spolu s množstvom ďalších vlastností, ktoré slúžia na bezpečné oddelenie užívateľa.
 
 Upravíme si službu `count.service`:
 ```
@@ -95,11 +95,11 @@ Všimnite si, že nový užívateľ sa nezapísal do `/etc/passwd`.
 
 Kam sa zapísali informácie o užívateľovi?
 
-Systemd implementuje túto funkciu cez `nss-systemd`, ktorý používa knižnicu Name Service Switch (NSS). Pre čítanie z tejto databázy je potrebné použiť príkaz `getent passwd`.
+systemd implementuje túto funkciu cez `nss-systemd`, ktorý používa knižnicu Name Service Switch (NSS). Pre čítanie z tejto databázy je potrebné použiť príkaz `getent passwd`.
 
 ## Izolácia siete
 
-Izoláciu siete môžete poznať skôr z kontajnerov alebo virtualizácie. Ukážeme si dva spôsoby ktoré sú implementované v Systemd.
+Izoláciu siete môžete poznať skôr z kontajnerov alebo virtualizácie. Ukážeme si dva spôsoby ktoré sú implementované v systemd.
 
 Prvý spôsob je použitie `PrivateNetwork=true`, ktorý využíva namespace. Takto spustený proces povolí iba komunikáciu voči loopbacku.
 
