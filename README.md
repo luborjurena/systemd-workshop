@@ -26,14 +26,14 @@ Debian/Ubuntu:
 ```
 apt-get install git debootstrap nano vim
 git clone https://github.com/luborjurena/systemd-workshop.git
-cp systemd-workshop/count.sh /opt/
+cp systemd-workshop/scripts/count.sh /opt/
 chmod +x /opt/count.sh
 ```
 Fedora/CentOS:
 ```
 dnf install git debootstrap nano vim
 git clone https://github.com/luborjurena/systemd-workshop.git
-cp systemd-workshop/count.sh /opt/
+cp systemd-workshop/scripts/count.sh /opt/
 chmod +x /opt/count.sh
 ```
 
