@@ -49,7 +49,7 @@ systemd
 Výstup bude `systemd`.
 
 ## Čo je to jednotka v Systemd?
-Systemd má niekoľko typov jednotiek (napr. služby, sockety, mounty, atď), ktoré sa zapisujú do konfigurácie v `/etc/systemd/` v textovom formáte štýlom ini.
+Systemd má niekoľko typov jednotiek (napr. služby, sockety, mounty, atď), ktoré sa zapisujú do adresára `/etc/systemd/`, v textovom formáte ini.
 Zoznam všetkých prítomných jednotiek v našom systéme môžeme zobraziť príkazom:
 ```
 [~]: systemctl list-units
