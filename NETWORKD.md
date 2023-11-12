@@ -4,7 +4,7 @@
 
 Systemd zapneme a povolíme príkazom
 ```
-systemctl enable --now systemd-networkd
+[~]: systemctl enable --now systemd-networkd
 ```
 
 ## systemd-networkd-wait-online
@@ -14,8 +14,8 @@ Spolu so `systemd-networkd` sa automaticky zapne aj služba `systemd-networkd-wa
 Odporúča sa vypnúť globálne `systemd-networkd-wait-online` a povoliť len na rozhraní, kde očakávame prítomnosť konektivity
 
 ```
-systemctl disable systemd-networkd-wait-online
-systemctl enable systemd-networkd-wait-online@enp1s0.service
+[~]: systemctl disable systemd-networkd-wait-online
+[~]: systemctl enable systemd-networkd-wait-online@enp1s0.service
 ```
 
 ## Konfigurácia
