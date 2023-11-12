@@ -42,10 +42,29 @@ chmod +x /opt/count.sh
 [~]: ps -p 1 -o comm=
 systemd
 ```
+```
+[~]: /proc/1/comm
+systemd
+```
 Výstup bude `systemd`.
 
+## Čo je to jednotka v Systemd?
+Systemd má niekoľko typov jednotiek (napr. služby, sockety, mounty, atď), ktoré sa zapisujú do konfigurácie v `/etc/systemd/` v textovom formáte štýlom ini.
+Zoznam všetkých prítomných jednotiek v našom systéme môžeme zobraziť príkazom:
+```
+[~]: systemctl list-units
+```
+príp. výstup filtrovať podľa typu:
+```
+[~]: systemctl list-units --type=service
+```
+alebo podľa stavu:
+```
+[~]: systemctl list-units --type=service --state=active
+```
+
 ## Vytvorenie vlastnej služby / jednotky
-Pre vytvorenie systemd jednotky je potrebné vytvoriť súbor s príponou .service v priečinku `/etc/systemd/system`. Ako príklad si vytvoríme nový súbor `/etc/systemd/system/count.service` s následujúcim obsahom:
+Pre vytvorenie systemd jednotky typu služba je potrebné vytvoriť súbor s príponou .service v priečinku `/etc/systemd/system`. Ako príklad si vytvoríme nový súbor `/etc/systemd/system/count.service` s následujúcim obsahom:
 ```
 [Unit]
 Description=Toto je moja prvá systemd služba
