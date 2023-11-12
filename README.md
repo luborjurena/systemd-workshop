@@ -1,6 +1,6 @@
 # systemd workshop
 
-Systemd je manažér pre linuxové operačné systémy. Je navrhnutý tak, aby nahradil tradičný systém SysV a init skripty. Systemd zabezpečuje incializáciu a základné funkcie pre beh systému a správu služieb.
+systemd je manažér pre linuxové operačné systémy. Je navrhnutý tak, aby nahradil tradičný systém SysV a init skripty. systemd zabezpečuje incializáciu a základné funkcie pre beh systému a správu služieb.
 
 Hlavnými cieľmi systemd sú zrýchlenie procesu inicializácie systému, lepšia správa služieb, efektívnejšie riadenie systémových udalostí a jednoduchšia konfigurácia. Jeho architektúra je založená na paralelnom spustení služieb, čo umožňuje rýchlejšie spustenie systému.
 
@@ -37,7 +37,7 @@ cp systemd-workshop/count.sh /opt/
 chmod +x /opt/count.sh
 ```
 
-## Ako zistím, či používam Systemd?
+## Ako zistím, či používam systemd?
 ```
 [~]: ps -p 1 -o comm=
 systemd
@@ -46,15 +46,14 @@ systemd
 [~]: /proc/1/comm
 systemd
 ```
-Výstup bude `systemd`.
 
-## Akú verziu Systemd používam?
+## Akú verziu systemd používam?
 ```
 [~]: systemd --version
 ```
 
-## Čo je to jednotka v Systemd?
-Systemd má niekoľko typov jednotiek (napr. služby, sockety, mounty, atď), ktoré sa zapisujú do adresára `/etc/systemd/`, v textovom formáte ini.
+## Čo je to jednotka v systemd?
+systemd má niekoľko typov jednotiek (napr. služby, sockety, mounty, atď), ktoré sa zapisujú do adresára `/etc/systemd/`, v textovom formáte ini.
 Zoznam všetkých prítomných jednotiek v našom systéme môžeme zobraziť príkazom:
 ```
 [~]: systemctl list-units
@@ -231,13 +230,13 @@ Môžeme vidieť, že vo výstupe sa naše limity aplikovali okamžite a bez re�
 
 # ad-hoc služby
 
-Systemd má možnosť spustenia aj ad-hoc služby prostredníctvom príkazu `systemd-run`.
+systemd má možnosť spustenia aj ad-hoc služby prostredníctvom príkazu `systemd-run`.
 Náš script môžeme spustiť následovne:
 ```
 [~]: systemd-run /opt/count.sh
 ```
 
-Systemd následne vytvorí jednorázovú službu, ktorej vygeneruje názov a vráti nám tuto hodnotu na výstupe z predchádzajúceho príkazu - `Running as unit: run-r78c0768061d147daa122f04d76fa4943.service`. So službou môžeme následne štandardne pracovať.
+systemd následne vytvorí jednorázovú službu, ktorej vygeneruje názov a vráti nám tuto hodnotu na výstupe z predchádzajúceho príkazu - `Running as unit: run-r78c0768061d147daa122f04d76fa4943.service`. So službou môžeme následne štandardne pracovať.
 
 ```
 [~]: systemctl  status run-r78c0768061d147daa122f04d76fa4943.service
