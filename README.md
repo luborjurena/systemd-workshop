@@ -4,7 +4,7 @@ systemd je manažér pre linuxové operačné systémy. Je navrhnutý tak, aby n
 
 Hlavnými cieľmi systemd sú zrýchlenie procesu inicializácie systému, lepšia správa služieb, efektívnejšie riadenie systémových udalostí a jednoduchšia konfigurácia. Jeho architektúra je založená na paralelnom spustení služieb, čo umožňuje rýchlejšie spustenie systému.
 
-V systemd je každá služba reprezentovaná tzv. jednotkou (unit). Tieto jednotky môžu byť služby, sokety, zariadenia, a iné komponenty systému. Služby sú definované v konfiguračných súboroch, ktoré obsahujú informácie o spôsobe, akým má byť služba spustená, zastavená a spravovaná.
+V systemd je každá úloha reprezentovaná tzv. jednotkou (unit). Tieto jednotky môžu byť služby, sokety, zariadenia, a iné komponenty systému. Služby sú definované v konfiguračných súboroch, ktoré obsahujú informácie o spôsobe, akým má byť služba spustená, zastavená a spravovaná.
 
 Zahŕňa niekoľko dôležitých komponentov:
 - systemd-journald: Slúži na správu a ukladanie systémových logov. Je to náhrada za tradičné systémové logovacie služby (napr. rsyslog).
