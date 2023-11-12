@@ -37,7 +37,7 @@ cp systemd-workshop/count.sh /opt/
 chmod +x /opt/count.sh
 ```
 
-## Ako zistím, či používam systemd?
+## Ako zistím, či používam Systemd?
 ```
 [~]: ps -p 1 -o comm=
 systemd
@@ -47,6 +47,11 @@ systemd
 systemd
 ```
 Výstup bude `systemd`.
+
+## Akú verziu Systemd používam?
+```
+[~]: systemd --version
+```
 
 ## Čo je to jednotka v Systemd?
 Systemd má niekoľko typov jednotiek (napr. služby, sockety, mounty, atď), ktoré sa zapisujú do adresára `/etc/systemd/`, v textovom formáte ini.
