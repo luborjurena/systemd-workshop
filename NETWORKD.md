@@ -57,7 +57,7 @@ Virtuálne rozhranie vytvoríme konfiguračným súborom s príponou `.netdev`, 
 Dummy rozhranie potrebuje načítanie modulu dummy v jadre (`modprobe dummy`).
 
 ```
-[Netdev]
+[NetDev]
 Name=dummy0
 Kind=dummy
 ```
